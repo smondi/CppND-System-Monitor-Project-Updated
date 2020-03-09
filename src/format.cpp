@@ -1,11 +1,11 @@
-#include <string>
-#include <sstream>
-#include <iomanip>
-
 #include "format.h"
 
-using std::string;
+#include <iomanip>
+#include <string>
+#include <sstream>
 
+
+using std::string;
 
 string Format::ElapsedTime(long seconds) { 
     int secs{0};
