@@ -101,20 +101,6 @@ long int LinuxParser::UpTime() {
     return systemUpTime;
  }
 
-// TODO: Read and return the number of jiffies for the system
-long LinuxParser::Jiffies() { return 0; }
-
-// TODO: Read and return the number of active jiffies for a PID
-// REMOVE: [[maybe_unused]] once you define the function
-long LinuxParser::ActiveJiffies(int pid[[maybe_unused]]) { return 0; }
-
-// TODO: Read and return the number of active jiffies for the system
-long LinuxParser::ActiveJiffies() { return 0; }
-
-// TODO: Read and return the number of idle jiffies for the system
-long LinuxParser::IdleJiffies() { return 0; }
-
-// TODO: Read and return CPU utilization
 std::vector<std::string> LinuxParser::CpuUtilization() {
     std::vector<std::string> cpu_stats{};
     std::string line;
@@ -218,18 +204,7 @@ std::string LinuxParser::Uid(int pid) {
 
 
 std::string LinuxParser::User(int pid) {
-    std::string uId = LinuxParser::Uid(pid);           
-    // auto userInfo = System::UserInfo().find(uId);
-    // std::string test{userInfo};
-    // return test;
-    // std::stringstream userId{};
-    // if (userInfo != System::UserInfo().end()) {
-    //     auto user_str {userInfo->second};              
-    //     userId << std::setw(5) << std::left << user_str;
-    // } else {
-    //     userId << std::setw(10) << std::left << " ";
-    // }
-    // return userId.str();
+    std::string uId = LinuxParser::Uid(pid);
     std::stringstream userId{};
      try {
          userId << std::setw(10) << std::left << System::UserInfo().at(uId);
