@@ -9,9 +9,6 @@ class Processor {
  public:
   Processor() = default;
   float Utilization();
-
-//  private:
-//   std::vector<float> cpu_stats_;
 };
 
 #endif

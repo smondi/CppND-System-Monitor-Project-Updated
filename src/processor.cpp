@@ -1,13 +1,5 @@
 #include "processor.h"
 
-
-// Processor::Processor() {
-//     std::vector<std::string> current_cpu_stats = LinuxParser::CpuUtilization();
-//     for (std::size_t i = 0; i < current_cpu_stats.size(); ++i) {
-//         this->cpu_stats_.push_back(std::stof(current_cpu_stats[i]));
-//     }
-// }
-
 float Processor::Utilization() {
     std::vector<std::string> current_cpu_stats = LinuxParser::CpuUtilization();
 
