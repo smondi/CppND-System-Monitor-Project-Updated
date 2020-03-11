@@ -4,20 +4,14 @@
 #include "system.h"
 
 #include <cstddef>
-#include <set>
 #include <string>
 #include <unistd.h>
 #include <vector>
 
-using std::set;
-using std::size_t;
-using std::string;
-using std::vector;
-
 std::unordered_map<std::string, std::string> System::usersInfo_;
 
 System::System() {        
-    std::ifstream fileStream("/etc/passwd");
+    std::ifstream fileStream(LinuxParser::kPasswordPath);
     std::string passwdLine;    
     char delimiter{':'};
     std::string token;
@@ -39,9 +33,9 @@ Processor& System::Cpu() {
     return cpu_; 
 }
 
-vector<Process>& System::Processes() {
+std::vector<Process>& System::Processes() {
     processes_.clear();
-    vector<int> pIds = LinuxParser::Pids();    
+    std::vector<int> pIds = LinuxParser::Pids();    
     for (std::size_t i = 0; i < pIds.size(); ++i) {
         std::string user = LinuxParser::User(pIds[i]);
         long int upTime = LinuxParser::UpTime(pIds[i]);

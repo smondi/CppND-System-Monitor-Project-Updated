@@ -7,11 +7,11 @@
 
 class Processor {
  public:
-  Processor();
+  Processor() = default;
   float Utilization();
 
- private:
-  std::vector<float> cpu_stats_;
+//  private:
+//   std::vector<float> cpu_stats_;
 };
 
 #endif

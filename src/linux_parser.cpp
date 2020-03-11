@@ -8,16 +8,9 @@
 #include <unistd.h>
 #include <vector>
 
-
-using std::stof;
-using std::string;
-using std::to_string;
-using std::vector;
-
 constexpr int megaByetes = 1024;
 
-// DONE: An example of how to read data from the filesystem
-string LinuxParser::OperatingSystem() {
+std::string LinuxParser::OperatingSystem() {
   std::string line;
   std::string key;
   std::string value;
@@ -39,8 +32,7 @@ string LinuxParser::OperatingSystem() {
   return value;
 }
 
-// DONE: An example of how to read data from the filesystem
-string LinuxParser::Kernel() {
+std::string LinuxParser::Kernel() {
   std::string os;
   std::string version;
   std::string kernel;
@@ -54,8 +46,7 @@ string LinuxParser::Kernel() {
   return kernel;
 }
 
-// BONUS: Update this to use std::filesystem
-vector<int> LinuxParser::Pids() {
+std::vector<int> LinuxParser::Pids() {
   std::vector<int> pids;
   DIR* directory = opendir(kProcDirectory.c_str());
   struct dirent* file;
@@ -63,9 +54,9 @@ vector<int> LinuxParser::Pids() {
     // Is this a directory?
     if (file->d_type == DT_DIR) {
       // Is every character of the name a digit?
-      string filename(file->d_name);
+      std::string filename(file->d_name);
       if (std::all_of(filename.begin(), filename.end(), isdigit)) {
-        int pid = stoi(filename);
+        int pid = std::stoi(filename);
         pids.push_back(pid);
       }
     }
@@ -124,7 +115,7 @@ long LinuxParser::ActiveJiffies() { return 0; }
 long LinuxParser::IdleJiffies() { return 0; }
 
 // TODO: Read and return CPU utilization
-vector<string> LinuxParser::CpuUtilization() {
+std::vector<std::string> LinuxParser::CpuUtilization() {
     std::vector<std::string> cpu_stats{};
     std::string line;
     std::string value;
@@ -175,7 +166,7 @@ int LinuxParser::RunningProcesses() {
 }
 
 
-string LinuxParser::Command(int pid) {
+std::string LinuxParser::Command(int pid) {
     std::string command;
     std::string procId = std::to_string(pid);
     std::string line;
@@ -188,7 +179,7 @@ string LinuxParser::Command(int pid) {
     return command; 
 }
 
-string LinuxParser::Ram(int pid) {    
+std::string LinuxParser::Ram(int pid) {    
     std::string ram;
     std::string procId = std::to_string(pid);
     std::string key;
@@ -206,9 +197,7 @@ string LinuxParser::Ram(int pid) {
     return ram;
 }
 
-// TODO: Read and return the user ID associated with a process
-// REMOVE: [[maybe_unused]] once you define the function
-string LinuxParser::Uid(int pid) { 
+std::string LinuxParser::Uid(int pid) { 
     int value;
     std::string uId;
     std::string procId = std::to_string(pid);
@@ -228,17 +217,20 @@ string LinuxParser::Uid(int pid) {
  }
 
 
-string LinuxParser::User(int pid) {
-    std::string uId = LinuxParser::Uid(pid);    
-    auto userInfo = System::UserInfo().find(uId);
-    std::stringstream userId{};
+std::string LinuxParser::User(int pid) {
+    std::string uId = LinuxParser::Uid(pid);           
+    // auto userInfo = System::UserInfo().find(uId);
+    // std::string test{userInfo};
+    // return test;
+    // std::stringstream userId{};
     // if (userInfo != System::UserInfo().end()) {
     //     auto user_str {userInfo->second};              
-    //     userId << std::setw(5) << user_str;
+    //     userId << std::setw(5) << std::left << user_str;
     // } else {
-    //     userId << std::setw(10) << " ";
+    //     userId << std::setw(10) << std::left << " ";
     // }
-    // return userId.str();     
+    // return userId.str();
+    std::stringstream userId{};
      try {
          userId << std::setw(10) << std::left << System::UserInfo().at(uId);
          return userId.str();        
@@ -290,7 +282,7 @@ long LinuxParser::UpTime(int pid) {
             tokens.push_back(token);
         }        
     }
-    long UpTime_secs = std::stoul(tokens[21]) / sysconf(_SC_CLK_TCK);    
+    long UpTime_secs = std::stoll(tokens[21]) / sysconf(_SC_CLK_TCK);    
     return UpTime_secs; 
 }
 

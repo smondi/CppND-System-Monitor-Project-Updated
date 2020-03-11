@@ -4,10 +4,7 @@
 #include <string>
 #include <sstream>
 
-
-using std::string;
-
-string Format::ElapsedTime(long seconds) { 
+std::string Format::ElapsedTime(long seconds) { 
     int secs{0};
     int hours = seconds / 3600;
     secs = seconds % 3600;

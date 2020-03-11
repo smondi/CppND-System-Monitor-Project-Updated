@@ -8,8 +8,6 @@
 #include <vector>
 #include <unordered_map>
 
-
-
 class System {
  public:
   System();

@@ -5,11 +5,6 @@
 #include <sstream>
 #include <string>
 #include <unistd.h>
-#include <vector>
-
-using std::string;
-using std::to_string;
-using std::vector;
 
 int Process::Pid() { 
     return pid_; 
@@ -19,15 +14,15 @@ float Process::CpuUtilization() const {
     return cpuUtilization_;
  }
 
-string Process::Command() { 
+std::string Process::Command() { 
     return command_; 
 }
 
-string Process::Ram() { 
+std::string Process::Ram() { 
     return ram_; 
 }
 
-string Process::User() { 
+std::string Process::User() { 
     return user_; 
 }
 
